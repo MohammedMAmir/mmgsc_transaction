@@ -5,10 +5,10 @@ import React from 'react'
 // Currently just at the index page
 export default function Main(props) {
     // Unpack any props passed to this component
-    const {children} = props
+    const { children } = props
     return (
-    <main>
-        { children} 
+    <main className='flex-1 flex flex-col p-4 sm:p-8'>
+        { children } 
     </main>
     )
 }
