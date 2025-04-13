@@ -24,8 +24,8 @@ export default function Main() {
     }
     return (
     <main className='flex-1 flex flex-col bg-[var(--body-gray)]'>
-        <div className='grid grid-cols-1 md:grid-cols-6'>
-            <div className='col-span-1 p-1 sm:p-2 '>
+        <div className='grid grid-cols-1 md:grid-cols-5'>
+            <div className='col-span-1 p-2 py-8 sm:py-6 md:text-xs lg:text-base'>
             <ul>
                 <NavElement elementName="transactions" 
                 handleNav = {handlePage} text = "Transactions" 
@@ -46,7 +46,7 @@ export default function Main() {
                 prim = {currentPage} />
             </ul>
             </div>
-            <div className='col-span-5'>
+            <div className='col-span-4'>
             { children }
             </div>  
         </div>
