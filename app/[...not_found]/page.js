@@ -4,8 +4,6 @@ import Main from '@/components/Main'
 
 export default function NotFoundCatchAll() {
   return (
-    <Main>
-      
-    </Main>
+    notFound()
   )
 }
