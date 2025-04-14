@@ -8,3 +8,19 @@
     --body-white: #FFFFFF;
     --body-bold:#E6E5E0;
   }
+
+  .no_calender::-webkit-calendar-picker-indicator {
+    opacity: 0;
+    position: absolute;
+    left: 0; /* Ensures the calendar still shows up */
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+  }
+  
+  .no_calender{
+    -moz-appearance: textfield;
+    position: relative;
+    z-index: 2;
+    background: transparent;
+  }

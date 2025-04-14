@@ -9,9 +9,11 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "date-fns": "^4.1.0",
     "next": "15.3.0",
     "npm-check-updates": "^17.1.18",
     "react": "^19.1.0",
+    "react-date-range": "^2.0.1",
     "react-dom": "^19.1.0",
     "react-fontawesome": "^1.7.1",
     "react-tailwindcss-datepicker": "^2.0.0"
