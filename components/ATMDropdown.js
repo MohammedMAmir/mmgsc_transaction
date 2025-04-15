@@ -4,8 +4,8 @@ import React, { useEffect, useState } from 'react'
 
 export default function ATMDropdown(props) {
     const { onATMChange } = props
-    const[atmList, setATMList] = useState([{}]);
-    const [selectedATM, setselectedATM] = useState(null)
+    const[atmList, setATMList] = useState([]);
+    const [selectedATM, setselectedATM] = useState()
     const [isSelecterOpen, setSelecterOpen] = useState(false)
 
     useEffect(()=>{

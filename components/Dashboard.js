@@ -2,6 +2,7 @@ import React from 'react'
 import Button from './Button'
 import { notFound, redirect } from 'next/navigation'
 import DashboardPicker from './DashboardPicker'
+import Results from './Results'
 
 export default function Dashboard(props) {
   const redirectHandler = (e) => {
@@ -19,6 +20,7 @@ export default function Dashboard(props) {
       </div>
       <div className="text-sm">
         <DashboardPicker />
+        <Results />
       </div>
     </div>
     
