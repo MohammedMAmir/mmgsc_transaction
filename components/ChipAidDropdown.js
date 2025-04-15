@@ -39,7 +39,7 @@ export default function ChipAidDropdown(props) {
                 <span>{selectedEMV ?? "All applications"}</span>
                 <i className={"fa " + (isSelecterOpen ? "fa-chevron-up" : "fa-chevron-down")}></i>
             </div>
-            <ul className={"mt-1 bg-[var(--body-white)]  overflow-y-auto " + (isSelecterOpen ? "max-h-60 " : "max-h-0") }>
+            <ul className={"mt-1 bg-[var(--body-white)] absolute overflow-y-auto " + (isSelecterOpen ? "max-h-60 " : "max-h-0") }>
                 {emvList.map(emv => (
                     <li key={emv} className={"p-2 text-sm max-w-full text-ellipsis duration-200 hover:bg-[var(--body-bold)]  " +
                         (emv===selectedEMV ? "bg-bg-[var(--navbar-primary)]" : " ")}
