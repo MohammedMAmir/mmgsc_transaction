@@ -40,7 +40,7 @@ export default function DashboardPicker() {
         }, []);
 
     return (
-        <div className="z-4 grid grid-cols-5 items-start justify-between truncate text-[0.6rem] lg:text-xs mt-2 gap-2">
+        <div className="z-4 grid grid-cols-5 items-start justify-between text-[0.6rem] lg:text-xs mt-2 gap-2">
             <div className="grid w-full col-span-1 items-start pt-2 pr-2">
                 <p className=" w-full font-bold">DATE</p>
                 <DashboardDatePicker onStartDateChange={(startDate) => setStartDate(startDate)
@@ -59,7 +59,7 @@ export default function DashboardPicker() {
                 <ChipAidDropdown onEMVChange = {(emv) => setEMVId(emv)}/>
             </div>
             <div className="w-full grid col-span-1 flex items-start pt-2 pr-2">
-                <p className="w-full font-bold">TRANSACTION SERIAL #</p>
+                <p className="w-full font-bold truncate">TRANSACTION SERIAL #</p>
                 <TransactionSerialField onTxnSerialChange={(txnSerial) => setTxnSerial(txnSerial)} />
             </div>
         </div>
