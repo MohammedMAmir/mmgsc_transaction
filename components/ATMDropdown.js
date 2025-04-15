@@ -3,21 +3,20 @@ import React, { useEffect, useState } from 'react'
 
 
 export default function ATMDropdown(props) {
-    const { onATMChange } = props
-    const[atmList, setATMList] = useState([]);
+    const { atmList } = props
     const [selectedATM, setselectedATM] = useState()
     const [isSelecterOpen, setSelecterOpen] = useState(false)
 
-    useEffect(()=>{
+    /* useEffect(()=>{
         fetch("https://dev.smartjournal.net:443/um/test/api/jr/txn/atmlist/v1")
         .then((res) => res.json())
         .then((data) => {
-            const atms = data.map((atm) => (atm.name));
+            const atms = data.map((atm) => (atm));
             setATMList(atms);
             console.log(atms)
             console.log("fetched ATMS")
         })
-    }, []);
+    }, []); */
     /* const atms = [
         {
         "key": 1,
@@ -43,14 +42,13 @@ export default function ATMDropdown(props) {
             <ul className={"mt-1 bg-[var(--body-white)] overflow-y-auto " + (isSelecterOpen ? "max-h-60 " : "max-h-0") }>
                 {atmList.map((atm, index) => (
                     <li key={index} className={"p-2 text-sm duration-200 hover:bg-[var(--body-bold)] " +
-                        (atm===atmList[selectedATM] ? "bg-bg-[var(--navbar-primary)]" : " ")}
+                        (atm.id===selectedATM ? "bg-bg-[var(--navbar-primary)]" : " ")}
                         onClick = {() => {
-                            setselectedATM(index);
+                            setselectedATM(atm.id);
                             setSelecterOpen(false);
-                            onATMChange(index)
                         }}
                     >
-                        {index}: {atm}
+                        {atm.id}: {atm.name}
                     </li>
                 ))}
             </ul>

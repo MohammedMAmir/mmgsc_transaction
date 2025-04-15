@@ -9,6 +9,24 @@ export default function Dashboard(props) {
     redirect('/not-found')
   }
 
+  fetch("https://dev.smartjournal.net:443/um/test/api/jr/txn/v1", {
+    method: "POST",
+    body: JSON.stringify(
+      {
+        "atmId": [
+          0, 54, 100
+        ],
+        "date0": -10000,
+        "date1": 1000000000,
+      }
+    ),
+    headers: {
+      "Content-type": "application/json; charset=UTF-8"
+    }
+  })
+    .then((response) => response.json())
+    .then((json) => console.log(json));
+    
   return (
     <div className="p-9 sm:p-7">
       <div className="flex items-center justify-between gap-4 ">
