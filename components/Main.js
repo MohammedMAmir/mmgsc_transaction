@@ -6,7 +6,7 @@ import React from 'react'
 // Currently just at the index page
 export default function Main({children}) {
     return (
-    <main className='flex-1 flex flex-col bg-[var(--body-gray)]'>
+    <main className='flex-1 flex flex-col bg-[var(--body-gray)] min-w-170'>
        {children}
     </main>
     )

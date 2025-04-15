@@ -4,6 +4,7 @@ import DashboardDatePicker from './DashboardDatePicker'
 import DashbooardDropdown from './DashbooardDropdown'
 import CreditCardField from './CreditCardField'
 import ChipAidDropdown from './ChipAidDropdown'
+import TransactionSerialField from './TransactionSerialField'
 
 export default function DashboardPicker() {
     const [atmId, setATMId] = useState(null)
@@ -11,6 +12,7 @@ export default function DashboardPicker() {
     const [startDate, setStartDate] = useState(new Date())
     const [endDate, setEndDate] = useState(new Date())
     const [pan, setPan] = useState(null)
+    const [txnSerial, setTxnSerial] = useState(null)
 
     useEffect(()=>{
         let starter = startDate.getTime()
@@ -26,26 +28,27 @@ export default function DashboardPicker() {
         }, []);
 
     return (
-        <div className="grid grid-cols-5 items-start justify-between truncate text-[0.6rem] lg:text-xs mt-2 gap-4">
-            <div className="grid w-full col-span-1 items-start pt-2 pr-4">
+        <div className="grid grid-cols-5 items-start justify-between truncate text-[0.6rem] lg:text-xs mt-2 gap-2">
+            <div className="grid w-full col-span-1 items-start pt-2 pr-2">
                 <p className=" w-full font-bold">DATE</p>
                 <DashboardDatePicker onStartDateChange={(startDate) => setStartDate(startDate)
                      } onEndDateChange={(endDate) => setEndDate(endDate)} />
             </div>
-            <div className="w-full grid  col-span-1 flex items-start pt-2 pr-4">
+            <div className="w-full grid  col-span-1 flex items-start pt-2 pr-2">
                 <p className="w-full font-bold">ATM ID</p>
                 <DashbooardDropdown onATMChange = {(atm) => setATMId(atm)}/>
             </div>
-            <div className="w-full grid col-span-1 flex items-start pt-2 pr-4">
+            <div className="w-full grid col-span-1 flex items-start pt-2 pr-2">
                 <p className="w-full font-bold">CUSTOMER PAN #</p>
                 <CreditCardField onPanChange={(pan) => setPan(pan)}/>
             </div>
-            <div className="w-full grid col-span-1 items-start pt-2 pr-4">
+            <div className="w-full grid col-span-1 items-start pt-2 pr-2">
                 <p className="w-full font-bold">EMV CHIP AID</p>
                 <ChipAidDropdown onEMVChange = {(emv) => setEMVId(emv)}/>
             </div>
-            <div className="w-full grid col-span-1 flex items-start pt-2 pr-4">
+            <div className="w-full grid col-span-1 flex items-start pt-2 pr-2">
                 <p className="w-full font-bold">TRANSACTION SERIAL #</p>
+                <TransactionSerialField onTxnSerialChange={(txnSerial) => setTxnSerial(txnSerial)} />
             </div>
         </div>
     )
