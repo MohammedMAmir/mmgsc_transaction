@@ -9,7 +9,7 @@ export default function DashbooardDropdown(props) {
     const [isSelecterOpen, setSelecterOpen] = useState(false)
 
     useEffect(()=>{
-        fetch("https://dev.smartjournal.net:443/um/test/api/jr/txn/aidlist/v1")
+        fetch("https://dev.smartjournal.net:443/um/test/api/jr/txn/atmlist/v1")
         .then((res) => res.json())
         .then((data) => {
             const atms = data.map((atm) => atm.id);

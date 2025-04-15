@@ -3,9 +3,11 @@ import React, { useState, useEffect } from 'react'
 import DashboardDatePicker from './DashboardDatePicker'
 import DashbooardDropdown from './DashbooardDropdown'
 import CreditCardField from './CreditCardField'
+import ChipAidDropdown from './ChipAidDropdown'
 
 export default function DashboardPicker() {
     const [atmId, setATMId] = useState(null)
+    const [emvId, setEMVId] = useState(null)
     const [startDate, setStartDate] = useState(new Date())
     const [endDate, setEndDate] = useState(new Date())
     const [pan, setPan] = useState(null)
@@ -24,8 +26,8 @@ export default function DashboardPicker() {
         }, []);
 
     return (
-        <div className="grid grid-cols-5 flex items-start justify-between text-[0.6rem] lg:text-xs mt-2 gap-4">
-            <div className="grid w-full col-span-1 flex items-start pt-2 pr-4">
+        <div className="grid grid-cols-5 flex items-start justify-between truncate text-[0.6rem] lg:text-xs mt-2 gap-4">
+            <div className="grid w-full col-span-1 items-start pt-2 pr-4">
                 <p className=" w-full font-bold">DATE</p>
                 <DashboardDatePicker onStartDateChange={(startDate) => setStartDate(startDate)
                      } onEndDateChange={(endDate) => setEndDate(endDate)} />
@@ -34,15 +36,16 @@ export default function DashboardPicker() {
                 <p className="w-full font-bold">ATM ID</p>
                 <DashbooardDropdown onATMChange = {(atm) => setATMId(atm)}/>
             </div>
-            <div className="w-full grid  col-span-1 flex items-start pt-2 pr-4">
-                <p className="w-full font-bold">CUSTOMER PAN NUMBER</p>
+            <div className="w-full grid col-span-1 flex items-start pt-2 pr-4">
+                <p className="w-full font-bold">CUSTOMER PAN #</p>
                 <CreditCardField onPanChange={(pan) => setPan(pan)}/>
             </div>
-            <div className="w-full grid grid-rows-2 col-span-1 flex items-start justify-between pt-2">
-                <p className="font-bold grid row-span-1">EMV CHIP AID</p>
+            <div className="w-full grid col-span-1 flex-1 items-start pt-2 pr-4">
+                <p className="w-full font-bold">EMV CHIP AID</p>
+                <ChipAidDropdown onEMVChange = {(emv) => setEMVId(emv)}/>
             </div>
-            <div className="w-full grid grid-rows-2 col-span-1 flex items-start justify-between pt-2">
-                <p className="font-bold grid row-span-1">TRANSACTION SERIAL NUMBER</p>
+            <div className="w-full grid col-span-1 flex items-start pt-2 pr-4">
+                <p className="w-full font-bold">TRANSACTION SERIAL #</p>
             </div>
         </div>
     )
