@@ -26,7 +26,7 @@ export default function DashboardPicker() {
         }, []);
 
     return (
-        <div className="grid grid-cols-5 flex items-start justify-between truncate text-[0.6rem] lg:text-xs mt-2 gap-4">
+        <div className="grid grid-cols-5 items-start justify-between truncate text-[0.6rem] lg:text-xs mt-2 gap-4">
             <div className="grid w-full col-span-1 items-start pt-2 pr-4">
                 <p className=" w-full font-bold">DATE</p>
                 <DashboardDatePicker onStartDateChange={(startDate) => setStartDate(startDate)
@@ -40,7 +40,7 @@ export default function DashboardPicker() {
                 <p className="w-full font-bold">CUSTOMER PAN #</p>
                 <CreditCardField onPanChange={(pan) => setPan(pan)}/>
             </div>
-            <div className="w-full grid col-span-1 flex-1 items-start pt-2 pr-4">
+            <div className="w-full grid col-span-1 items-start pt-2 pr-4">
                 <p className="w-full font-bold">EMV CHIP AID</p>
                 <ChipAidDropdown onEMVChange = {(emv) => setEMVId(emv)}/>
             </div>
