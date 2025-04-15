@@ -2,9 +2,9 @@
 import React, { useEffect, useState } from 'react'
 
 
-export default function DashbooardDropdown(props) {
+export default function ATMDropdown(props) {
     const { onATMChange } = props
-    const[atmList, setATMList] = useState([]);
+    const[atmList, setATMList] = useState([{}]);
     const [selectedATM, setselectedATM] = useState(null)
     const [isSelecterOpen, setSelecterOpen] = useState(false)
 
@@ -12,8 +12,9 @@ export default function DashbooardDropdown(props) {
         fetch("https://dev.smartjournal.net:443/um/test/api/jr/txn/atmlist/v1")
         .then((res) => res.json())
         .then((data) => {
-            const atms = data.map((atm) => atm.id);
+            const atms = data.map((atm) => (return[atm.name, atm.id]));
             setATMList(atms);
+            console.log(atms)
             console.log("fetched ATMS")
         })
     }, []);
@@ -41,15 +42,15 @@ export default function DashbooardDropdown(props) {
             </div>
             <ul className={"mt-1 bg-[var(--body-white)] overflow-y-auto " + (isSelecterOpen ? "max-h-60 " : "max-h-0") }>
                 {atmList.map(atm => (
-                    <li key={atm} className={"p-2 text-sm duration-200 hover:bg-[var(--body-bold)] " +
+                    <li key={atm[1]} className={"p-2 text-sm duration-200 hover:bg-[var(--body-bold)] " +
                         (atm===selectedATM ? "bg-bg-[var(--navbar-primary)]" : " ")}
                         onClick = {() => {
-                            setselectedATM(atm);
+                            setselectedATM(atm[1]);
                             setSelecterOpen(false);
-                            onATMChange(atm)
+                            onATMChange(atm[1])
                         }}
                     >
-                        {atm}
+                        {atm[0]}
                     </li>
                 ))}
             </ul>

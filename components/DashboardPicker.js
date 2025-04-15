@@ -1,7 +1,7 @@
 'use client'
 import React, { useState, useEffect } from 'react'
 import DashboardDatePicker from './DashboardDatePicker'
-import DashbooardDropdown from './DashbooardDropdown'
+import ATMDropdown from './ATMDropdown'
 import CreditCardField from './CreditCardField'
 import ChipAidDropdown from './ChipAidDropdown'
 import TransactionSerialField from './TransactionSerialField'
@@ -36,7 +36,7 @@ export default function DashboardPicker() {
             </div>
             <div className="w-full grid  col-span-1 flex items-start pt-2 pr-2">
                 <p className="w-full font-bold">ATM ID</p>
-                <DashbooardDropdown onATMChange = {(atm) => setATMId(atm)}/>
+                <ATMDropdown onATMChange = {(atm) => setATMId(atm)}/>
             </div>
             <div className="w-full grid col-span-1 flex items-start pt-2 pr-2">
                 <p className="w-full font-bold">CUSTOMER PAN #</p>
