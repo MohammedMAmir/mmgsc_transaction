@@ -1,31 +1,26 @@
-import React from 'react'
+'use client'
+import React, { useState, useEffect } from 'react'
 import Button from './Button'
 import { notFound, redirect } from 'next/navigation'
 import DashboardPicker from './DashboardPicker'
 import Results from './Results'
 
 export default function Dashboard(props) {
+
   const redirectHandler = (e) => {
     redirect('/not-found')
   }
+  const[atmList, setATMList] = useState([]);
 
-  fetch("https://dev.smartjournal.net:443/um/test/api/jr/txn/v1", {
-    method: "POST",
-    body: JSON.stringify(
-      {
-        "atmId": [
-          0, 54, 100
-        ],
-        "date0": -10000,
-        "date1": 1000000000,
-      }
-    ),
-    headers: {
-      "Content-type": "application/json; charset=UTF-8"
-    }
-  })
-    .then((response) => response.json())
-    .then((json) => console.log(json));
+  useEffect(()=>{
+    fetch("https://dev.smartjournal.net:443/um/test/api/jr/txn/atmlist/v1")
+    .then((res) => res.json())
+    .then((data) => {
+        const atms = data.map((atm) => (atm));
+        setATMList(atms);
+        console.log("fetched ATMS")
+    })
+  }, []);
     
   return (
     <div className="p-9 sm:p-7">
@@ -36,8 +31,8 @@ export default function Dashboard(props) {
           <Button text="Export" clickHandler = {redirectHandler} />
         </div>
       </div>
-      <div className="text-sm">
-        <DashboardPicker />
+      <div className="text-sm flex flex-col">
+        <DashboardPicker atmList={atmList} />
         <Results />
       </div>
     </div>

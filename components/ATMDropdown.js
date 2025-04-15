@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 
 
 export default function ATMDropdown(props) {
-    const { atmList } = props
+    const { atmList, onChangeID } = props
     const [selectedATM, setselectedATM] = useState()
     const [isSelecterOpen, setSelecterOpen] = useState(false)
 
@@ -46,6 +46,7 @@ export default function ATMDropdown(props) {
                         onClick = {() => {
                             setselectedATM(atm);
                             setSelecterOpen(false);
+                            onChangeID(atm.id)
                         }}
                     >
                         {atm.id}: {atm.name}

@@ -6,8 +6,8 @@ import CreditCardField from './CreditCardField'
 import ChipAidDropdown from './ChipAidDropdown'
 import TransactionSerialField from './TransactionSerialField'
 
-export default function DashboardPicker() {
-    const[atmList, setATMList] = useState([]);
+export default function DashboardPicker(props) {
+    const { atmList } = props
     const [atmId, setATMId] = useState(null)
     const [emvId, setEMVId] = useState(null)
     const [startDate, setStartDate] = useState(new Date())
@@ -15,16 +15,6 @@ export default function DashboardPicker() {
     const [pan, setPan] = useState(null)
     const [txnSerial, setTxnSerial] = useState(null)
 
-    useEffect(()=>{
-        fetch("https://dev.smartjournal.net:443/um/test/api/jr/txn/atmlist/v1")
-        .then((res) => res.json())
-        .then((data) => {
-            const atms = data.map((atm) => (atm));
-            setATMList(atms);
-            console.log(atms)
-            console.log("fetched ATMS")
-        })
-    }, []);
 
     useEffect(()=>{
         let starter = startDate.getTime()
