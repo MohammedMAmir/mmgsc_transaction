@@ -10,24 +10,10 @@ export default function DashboardPicker(props) {
     const { atmList, filterChange} = props
     const [atmId, setATMId] = useState(null)
     const [emvId, setEMVId] = useState(null)
-    const [startDate, setStartDate] = useState(new Date())
-    const [endDate, setEndDate] = useState(new Date())
+    const [startDate, setStartDate] = useState(null)
+    const [endDate, setEndDate] = useState(null)
     const [pan, setPan] = useState(null)
     const [txnSerial, setTxnSerial] = useState(null)
-
-
-    useEffect(()=>{
-        let starter = startDate.getTime()
-        let ender = endDate.getTime()
-        console.log("fetching https://dev.smartjournal.net:443/um/test/api/jr/txn/txnlist/"+atmId+"/"+{startDate}+"/v1")
-            fetch("https://dev.smartjournal.net:443/um/test/api/jr/txn/txnlist/"+atmId+"/"+starter+"/v1")
-            .then((res) => res.json())
-            .then((data) => {
-                //const transactions = data.map((transaction) => transaction.txn);
-                console.log(data)
-                console.log("got here")
-            })
-        }, []);
 
     return (
         <div className="z-4 grid grid-cols-5 items-start justify-between text-[0.6rem] lg:text-xs mt-2 gap-2">

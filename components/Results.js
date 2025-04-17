@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react'
 
 export default function Results({filter, atmList}) {
-  const [filteredRes, setFilteredRes] = useState(true)
+  const [filteredRes, setFilteredRes] = useState(null)
   const [allTxns, setAllTxns] = useState([])
   const [logs, setLog] = useState()
 
@@ -11,6 +11,22 @@ export default function Results({filter, atmList}) {
   let month = today.getMonth()
   let year = today.getFullYear()
 
+  async function filterResults(){
+    if(allTxns){
+      const res = allTxns.map((txn, index)=>{
+        let res = []
+        if((filter.atmID ? txn.atm.id == filter.atmID : true) && 
+          (filter.sDate ? txn.devTime/100000 >= filter.sDate : true) &&
+          (filter.edate ? txn.devTime/100000 < filter.eDate : true) &&
+          (filter.pan ? txn.pan == filter.pan : !filter.pan)
+        ){
+            res.push(txn)
+          }
+        return res
+      })
+      setFilteredRes(res)
+    }
+  }
 
   useEffect(()=>{
     const atmIDs = atmList.map((atm) => atm.id)
@@ -36,28 +52,20 @@ export default function Results({filter, atmList}) {
     }
 
     try {
-      const res = fetchData()
+      const res = fetchData().then(filterResults())
+      
     }catch(err){
       console.log(err)
     }
-    
+
     }, [atmList]);
 
-    /*useEffect(()=>{
-      allTxns.map((txn, index)=>{
-        let res = []
-        if(txn.atm.id == filter.atmID && 
-          txn.devTime/100000 >= filter.sDate &&
-          txn.devTime/100000 < filter.eDate &&
-          txn.pan == filter.pan &&
+    useEffect(()=>{
+      filterResults()
+      }, [allTxns]);
+  
 
-         ){
-
-           }
-      })
-      }, [filter]);*/
-
-    console.log(allTxns)
+    //console.log(allTxns)
 
   return (
     <div className="w-full bg-[var(--body-white)] text-[0.7rem] lg:text-xs rounded border-2 border-[var(--body-bold)] mt-2 max-h-[500px] overflow-y-auto">
@@ -69,8 +77,8 @@ export default function Results({filter, atmList}) {
             <div className="col-span-1 p-2">Description</div>
             <div className="col-span-1 p-2">Code</div>
           </div>
-          {(allTxns) ?
-            allTxns.map((txn, index)=>(
+          {(filteredRes && filteredRes.length > 1) ? (
+            filteredRes.map((txn, index)=>(
             <div key={index} className="border-t-2 border-[var(--body-bold)] grid grid-cols-5 gap-2">
               <div className="col-span-1 p-2">
                 {txn.devTime.toString().substring(6, 8)+ "-" +txn.devTime.toString().substring(4,6) + "-" + txn.devTime.toString().substring(0,4)}</div>
@@ -79,7 +87,7 @@ export default function Results({filter, atmList}) {
               <div className="col-span-1 p-2">{txn.ttp.descr}</div>
               <div className="col-span-1 p-2">{txn.ttp.txt}</div>
             </div>
-            ))
+            )))
              :
             <div className="text-center p-2 border-t-2  border-[var(--body-bold)]">No Results</div>}
       </div>    

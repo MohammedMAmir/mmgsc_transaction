@@ -7,7 +7,14 @@ import Results from './Results'
 
 export default function Dashboard(props) {
   const[atmList, setATMList] = useState([1]);
-  const[filter, setFilter] = useState({})
+  const[filter, setFilter] = useState({
+    "sDate": null,
+    "eDate": null,
+    "atmID": null,
+    "pan": null,
+    "chipAid": null,
+    "tSerial": null,
+   })
 
   const redirectHandler = (e) => {
     redirect('/not-found')
