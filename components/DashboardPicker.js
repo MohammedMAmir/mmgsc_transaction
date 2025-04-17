@@ -38,7 +38,7 @@ export default function DashboardPicker(props) {
             </div>
             <div className="w-full grid  col-span-1 flex items-start pt-2 pr-2">
                 <p className="w-full font-bold">ATM ID</p>
-                <ATMDropdown atmList = {atmList} />
+                <ATMDropdown atmList = {atmList} onChangeID={(atmID) => setATMId(atmID)}/>
             </div>
             <div className="w-full grid col-span-1 flex items-start pt-2 pr-2">
                 <p className="w-full font-bold">CUSTOMER PAN #</p>
