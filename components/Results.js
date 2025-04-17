@@ -1,23 +1,28 @@
 'use client'
 import React, { useState, useEffect } from 'react'
 
-export default function Results(props) {
-  const { atmList, filter } = props
+export default function Results({filter, atmList}) {
   const [filteredRes, setFilteredRes] = useState(true)
   const [allTxns, setAllTxns] = useState([])
+  const [logs, setLog] = useState()
+
+  let today = new Date()
+  let date = today.getDate()
+  let month = today.getMonth()
+  let year = today.getFullYear()
+
 
   useEffect(()=>{
+    const atmIDs = atmList.map((atm) => atm.id)
     const fetchData = async () => {
       // get the data from the api
       const data = await fetch("https://dev.smartjournal.net:443/um/test/api/jr/txn/v1", {
       method: "POST",
       body: JSON.stringify(
         {
-          "atmId": [
-            0, 54, 100
-          ],
-          "date0": -10000,
-          "date1": 1000000000,
+          "atmId": atmIDs,
+          "date0": 19700101,
+          "date1": year*10000+month*100 + date,
         }
       ),
       headers: {
@@ -29,21 +34,33 @@ export default function Results(props) {
       setAllTxns(json.txn)
       return json;
     }
+
     try {
       const res = fetchData()
     }catch(err){
       console.log(err)
     }
+    
+    }, [atmList]);
 
-    const fetchLogs = async () => {
-      
-    }
-    }, []);
+    /*useEffect(()=>{
+      allTxns.map((txn, index)=>{
+        let res = []
+        if(txn.atm.id == filter.atmID && 
+          txn.devTime/100000 >= filter.sDate &&
+          txn.devTime/100000 < filter.eDate &&
+          txn.pan == filter.pan &&
+
+         ){
+
+           }
+      })
+      }, [filter]);*/
 
     console.log(allTxns)
 
   return (
-    <div className="w-full bg-[var(--body-white)] text-[0.7rem] lg:text-xs rounded border-2 border-[var(--body-bold)] mt-2">
+    <div className="w-full bg-[var(--body-white)] text-[0.7rem] lg:text-xs rounded border-2 border-[var(--body-bold)] mt-2 max-h-[500px] overflow-y-auto">
       <div className="bg-[var(--body-white)] w-full ">
           <div className="grid grid-cols-5 gap-2">
             <div className="col-span-1 p-2">Date</div>
@@ -52,15 +69,15 @@ export default function Results(props) {
             <div className="col-span-1 p-2">Description</div>
             <div className="col-span-1 p-2">Code</div>
           </div>
-          {(filteredRes) ?
+          {(allTxns) ?
             allTxns.map((txn, index)=>(
-            <div key={index} className="grid grid-cols-5 gap-2">
+            <div key={index} className="border-t-2 border-[var(--body-bold)] grid grid-cols-5 gap-2">
               <div className="col-span-1 p-2">
                 {txn.devTime.toString().substring(6, 8)+ "-" +txn.devTime.toString().substring(4,6) + "-" + txn.devTime.toString().substring(0,4)}</div>
               <div className="col-span-1 p-2">{txn.atm.txt}</div>
               <div className="col-span-1 p-2">{txn.pan}</div>
               <div className="col-span-1 p-2">{txn.ttp.descr}</div>
-              <div className="col-span-1 p-2">Code</div>
+              <div className="col-span-1 p-2">{txn.ttp.txt}</div>
             </div>
             ))
              :

@@ -1,27 +1,41 @@
 'use client'
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useReducer } from 'react'
 import Button from './Button'
 import { notFound, redirect } from 'next/navigation'
 import DashboardPicker from './DashboardPicker'
 import Results from './Results'
 
 export default function Dashboard(props) {
+  const[atmList, setATMList] = useState([1]);
+  const[filter, setFilter] = useState({})
 
   const redirectHandler = (e) => {
     redirect('/not-found')
   }
-  const[atmList, setATMList] = useState([]);
+  
 
   useEffect(()=>{
-    fetch("https://dev.smartjournal.net:443/um/test/api/jr/txn/atmlist/v1")
-    .then((res) => res.json())
-    .then((data) => {
-        const atms = data.map((atm) => (atm));
-        setATMList(atms);
-        console.log("fetched ATMS")
-    })
+    const fetchATMs =  async () => {
+      let res = await fetch("https://dev.smartjournal.net:443/um/test/api/jr/txn/atmlist/v1")
+      const data = await res.json()
+      const atms = await data.map((atm) => (atm))
+      setATMList(atms);
+      console.log("fetched ATMS")
+    }
+    fetchATMs()
   }, []);
-    
+
+  const filterChange = (startDate, endDate, atmID, pan, chipAid, tSerial) => {
+    setFilter({
+      "sDate": startDate,
+      "eDate": endDate,
+      "atmID": atmID,
+      "pan": pan,
+      "chipAid": chipAid,
+      "tSerial": tSerial,
+     })
+  }
+  
   return (
     <div className="p-9 sm:p-7">
       <div className="flex items-center justify-between gap-4 ">
@@ -32,8 +46,8 @@ export default function Dashboard(props) {
         </div>
       </div>
       <div className="text-sm flex flex-col">
-        <DashboardPicker atmList={atmList} />
-        <Results />
+        <DashboardPicker atmList={atmList} listChanged={true} filterChange={filterChange}/>
+        <Results atmList={atmList} filter={filter}/>
       </div>
     </div>
     
