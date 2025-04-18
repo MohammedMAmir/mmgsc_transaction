@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react'
 export default function Results({filter, atmList}) {
   const [filteredRes, setFilteredRes] = useState([])
   const [allTxns, setAllTxns] = useState(null)
-  const [txnsFetched, setTxnsFetched] = useState(1)
+  const [txnsFetched, setTxnsFetched] = useState(false)
   const [logs, setLog] = useState()
 
   let today = new Date()
@@ -15,6 +15,7 @@ export default function Results({filter, atmList}) {
   function filterResults(){
     let result = []
     if(allTxns){
+      setTxnsFetched(true)
       result = function () {
         let res = []
         console.log(filter.sDate)
@@ -22,7 +23,8 @@ export default function Results({filter, atmList}) {
           if((filter.atmID ? allTxns[i].atm.id == filter.atmID : true) && 
           (filter.sDate ? allTxns[i].devTime/1000000 >= filter.sDate : true) &&
           (filter.edate ? allTxns[i].devTime/1000000 < filter.eDate : true) &&
-          (filter.pan  ? (allTxns[i].pan ? allTxns[i].pan.startsWith(filter.pan) : false) : true)
+          (filter.pan  ? (allTxns[i].pan ? allTxns[i].pan.startsWith(filter.pan) : false) : true &&
+          filter.tSerial ? (allTxns[i].ref ? allTxns[i].ref.startsWith(filter.tSerial) : false) : true)
         ){
             console.log("pushing")
             res.push(allTxns[i])
@@ -63,7 +65,6 @@ export default function Results({filter, atmList}) {
 
     try {
       fetchData().then(filterResults())
-      setTxnsFetched(txnsFetched+1)
       
     }catch(err){
       console.log(err)
@@ -89,7 +90,7 @@ export default function Results({filter, atmList}) {
             <div className="col-span-1 p-2">Description</div>
             <div className="col-span-1 p-2">Code</div>
           </div>
-          {(filteredRes && filteredRes.length > 1) ? (
+          {txnsFetched ? ((filteredRes && filteredRes.length > 1) ? (
             filteredRes.map((txn, index)=>(
             <div key={index} className="border-t-2 border-[var(--body-bold)] grid grid-cols-5 gap-2">
               <div className="col-span-1 p-2">
@@ -101,7 +102,9 @@ export default function Results({filter, atmList}) {
             </div>
             )))
              :
-            <div className="text-center p-2 border-t-2  border-[var(--body-bold)]">No Results</div>}
+            <div className="text-center p-2 border-t-2  border-[var(--body-bold)]">No Results</div>)
+          : <div className="text-center p-2 border-t-2  border-[var(--body-bold)] text-xl"><i className="fa fa-spinner fa-pulse "></i></div>}
+          {}
       </div>    
     </div> 
   )
