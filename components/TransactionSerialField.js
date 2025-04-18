@@ -17,7 +17,7 @@ export default function TransactionSerialField(props) {
                     rounded-md mt-1 bg-[var(--body-white)] p-1 flex inline-block truncate">
                         <input className="flex w-full truncate overflow-hidden p-1" 
                         placeholder='4 digit number' type="tel" 
-                        inputMode="numeric" pattern="[0-9\s]{0, 4}" value={txnSerial}
+                        inputMode="numeric" pattern="^\d{4}" value={txnSerial}
                         maxLength="4" id="txn_serial"
                         onChange={txnOnChange}
                         />

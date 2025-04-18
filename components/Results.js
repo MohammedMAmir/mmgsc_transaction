@@ -2,8 +2,9 @@
 import React, { useState, useEffect } from 'react'
 
 export default function Results({filter, atmList}) {
-  const [filteredRes, setFilteredRes] = useState(null)
-  const [allTxns, setAllTxns] = useState([])
+  const [filteredRes, setFilteredRes] = useState([])
+  const [allTxns, setAllTxns] = useState(null)
+  const [txnsFetched, setTxnsFetched] = useState(1)
   const [logs, setLog] = useState()
 
   let today = new Date()
@@ -11,22 +12,31 @@ export default function Results({filter, atmList}) {
   let month = today.getMonth()
   let year = today.getFullYear()
 
-  async function filterResults(){
+  function filterResults(){
+    let result = []
     if(allTxns){
-      const res = allTxns.map((txn, index)=>{
+      result = function () {
         let res = []
-        if((filter.atmID ? txn.atm.id == filter.atmID : true) && 
-          (filter.sDate ? txn.devTime/100000 >= filter.sDate : true) &&
-          (filter.edate ? txn.devTime/100000 < filter.eDate : true) &&
-          (filter.pan ? txn.pan == filter.pan : !filter.pan)
+        console.log(filter.sDate)
+        for(let i = 0; i < allTxns.length ; i++){
+          if((filter.atmID ? allTxns[i].atm.id == filter.atmID : true) && 
+          (filter.sDate ? allTxns[i].devTime/1000000 >= filter.sDate : true) &&
+          (filter.edate ? allTxns[i].devTime/1000000 < filter.eDate : true) &&
+          (filter.pan  ? (allTxns[i].pan ? allTxns[i].pan.startsWith(filter.pan) : false) : true)
         ){
-            res.push(txn)
+            console.log("pushing")
+            res.push(allTxns[i])
           }
+        }
+        console.log("res is:")
+        console.log(res)
         return res
-      })
-      setFilteredRes(res)
+      }
+    }else{
+      result = []
     }
-  }
+    setFilteredRes(result)
+    }
 
   useEffect(()=>{
     const atmIDs = atmList.map((atm) => atm.id)
@@ -52,25 +62,27 @@ export default function Results({filter, atmList}) {
     }
 
     try {
-      const res = fetchData().then(filterResults())
+      fetchData().then(filterResults())
+      setTxnsFetched(txnsFetched+1)
       
     }catch(err){
       console.log(err)
     }
 
-    }, [atmList]);
+  }, [atmList]);
 
-    useEffect(()=>{
+  useEffect(()=>{
       filterResults()
-      }, [allTxns]);
+    }, [allTxns, filter]);
   
 
-    //console.log(allTxns)
+    console.log(allTxns)
+    console.log(filteredRes)
 
   return (
     <div className="w-full bg-[var(--body-white)] text-[0.7rem] lg:text-xs rounded border-2 border-[var(--body-bold)] mt-2 max-h-[500px] overflow-y-auto">
       <div className="bg-[var(--body-white)] w-full ">
-          <div className="grid grid-cols-5 gap-2">
+          <div className="grid grid-cols-5 gap-2 font-semibold">
             <div className="col-span-1 p-2">Date</div>
             <div className="col-span-1 p-2">ATM ID</div>
             <div className="col-span-1 p-2">Customer Pan</div>
@@ -85,7 +97,7 @@ export default function Results({filter, atmList}) {
               <div className="col-span-1 p-2">{txn.atm.txt}</div>
               <div className="col-span-1 p-2">{txn.pan}</div>
               <div className="col-span-1 p-2">{txn.ttp.descr}</div>
-              <div className="col-span-1 p-2">{txn.ttp.txt}</div>
+              <div className="col-span-1 p-2">{txn.ref}</div>
             </div>
             )))
              :

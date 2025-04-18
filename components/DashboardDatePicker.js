@@ -10,22 +10,28 @@ export default function DashboardDatePicker (props){
     const [endDate, setEndDate] = useState(new Date())
 
     const startOnChange = (e) => {
+        const dateString = e.target.value.toString()
+        let reformatedDate = dateString.replace('-','')
+        reformatedDate = reformatedDate.replace('-','')
         if(endDate != "" && endDate < e.target.value){
             setEndDate(e.target.value)
-            onEndDateChange(e.target.value)
+            onEndDateChange(reformatedDate)
         }
         document.getElementById("end").showPicker()
         setStartDate(e.target.value)
-        onStartDateChange(e.target.value)
+        onStartDateChange(reformatedDate)
     }
 
     const endOnChange = (e) => {
+        const dateString = e.target.value.toString()
+        let reformatedDate = dateString.replace('-','')
+        reformatedDate = reformatedDate.replace('-','')
         if(startDate != "" && startDate > e.target.value){
             setStartDate(e.target.value)
-            onStartDateChange(e.target.value)
+            onStartDateChange(reformatedDate)
         }
         setEndDate(e.target.value)
-        onEndDateChange(e.target.value)
+        onEndDateChange(reformatedDate)
     }
 
     return (

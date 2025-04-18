@@ -40,6 +40,16 @@ export default function ATMDropdown(props) {
                 <i className={"fa " + (isSelecterOpen ? "fa-chevron-up" : "fa-chevron-down")}></i>
             </div>
             <ul className={"mt-1 bg-[var(--body-white)] absolute display-block overflow-y-auto " + (isSelecterOpen ? "max-h-60 " : "max-h-0") }>
+                <li key={-1} className={"p-2 text-sm duration-200 hover:bg-[var(--body-bold)] " +
+                            ((selectedATM && -1===selectedATM.id) ? "bg-bg-[var(--navbar-primary)]" : " ")}
+                            onClick = {() => {
+                                setselectedATM(null);
+                                setSelecterOpen(false);
+                                onChangeID(null)
+                            }}
+                        >
+                            All ATMs
+                </li>
                 {atmList.map((atm, index) => (
                     <li key={index} className={"p-2 text-sm duration-200 hover:bg-[var(--body-bold)] " +
                         ((selectedATM && atm.id===selectedATM.id) ? "bg-bg-[var(--navbar-primary)]" : " ")}
