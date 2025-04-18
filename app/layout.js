@@ -1,6 +1,7 @@
 import { Geist, Geist_Mono, Inter } from "next/font/google";
 import "./globals.css";
 import Link from "next/link";
+import NotImplemented from "@/components/NotImplemented";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -22,9 +23,10 @@ export default function RootLayout({ children }) {
   // layout to all pages
   const header = (
     <header className="p-2 sm:p-4 flex items-center justify-between gap-4 ">
-      <img className="h-8 w-18 sm:h-10 sm:w-20 object-cover" src="/MM_logo.webp"></img>
+      <Link href="/"><img className="h-8 w-18 sm:h-10 sm:w-20 object-cover" src="/MM_logo.webp"></img></Link>
       <div className="flex items-center justify-between">
-        <img className="h-10 w-10 sm:h-12 sm:w-12 object-cover" src="/default-profile.png"></img>
+        <Link href="notfound"><img className="hover:opacity-60 h-10 w-10 sm:h-12 sm:w-12 object-cover" src="/default-profile.png"
+        ></img></Link>
       </div>
     </header>
   )

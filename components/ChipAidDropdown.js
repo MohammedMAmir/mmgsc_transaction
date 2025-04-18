@@ -34,7 +34,7 @@ export default function ChipAidDropdown(props) {
 
     return (
         <div className="pt-1 overflow-hidden text-wrap  w-full ">
-            <div className=" p-2 mt-1 bg-[var(--body-white)] flex border-2 border-[var(--body-bold)] rounded-md flex-1 items-center justify-between"
+            <div className=" hover:bg-[var(--navbar-hover)] p-2 mt-1 bg-[var(--body-white)] flex border-2 border-[var(--body-bold)] rounded-md flex-1 items-center justify-between"
             onClick={() => setSelecterOpen(!isSelecterOpen)}>
                 <span>{selectedEMV ?? "All applications"}</span>
                 <i className={"fa " + (isSelecterOpen ? "fa-chevron-up" : "fa-chevron-down")}></i>

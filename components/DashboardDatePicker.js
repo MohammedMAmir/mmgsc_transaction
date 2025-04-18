@@ -37,11 +37,11 @@ export default function DashboardDatePicker (props){
     return (
         <div className="pt-1">
             <div className="grid grid-cols-1 flex flex-col lg:grid-cols-2 w-full lg:gap-2">
-                <div className="col-span-1 border-2 border-[var(--body-bold)] text-center rounded-md mt-1 bg-[var(--body-white)] p-2 flex inline-block truncate">
+                <div className="col-span-1 hover:bg-[var(--navbar-hover)] border-2 border-[var(--body-bold)] text-center rounded-md mt-1 bg-[var(--body-white)] p-2 flex inline-block truncate">
                     <input className="flex no_calender inline-block truncate overflow-hidden " value={startDate} type="date" id="start"
                     onChange = {startOnChange} />
                 </div>
-                <div className="col-span-1 border-2 border-[var(--body-bold)] text-center mt-1 rounded-md bg-[var(--body-white)] p-2 inline-block truncate">
+                <div className="col-span-1 border-2 hover:bg-[var(--navbar-hover)] border-[var(--body-bold)] text-center mt-1 rounded-md bg-[var(--body-white)] p-2 inline-block truncate">
                     <input className="flex no_calender inline-block truncate overflow-hidden" type="date" value={endDate} id="end"
                     onChange = {endOnChange}></input>
                 </div>  

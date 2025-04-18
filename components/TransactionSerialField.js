@@ -13,7 +13,7 @@ export default function TransactionSerialField(props) {
     return (
         <div className="pt-1">
                 <div className="flex flex-col">
-                    <div className="col-span-1 border-2 border-[var(--body-bold)] text-center 
+                    <div className="col-span-1 hover:bg-[var(--navbar-hover)] border-2 border-[var(--body-bold)] text-center 
                     rounded-md mt-1 bg-[var(--body-white)] p-1 flex inline-block truncate">
                         <input className="flex w-full truncate overflow-hidden p-1" 
                         placeholder='4 digit number' type="tel" 

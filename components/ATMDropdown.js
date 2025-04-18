@@ -34,7 +34,7 @@ export default function ATMDropdown(props) {
 
     return (
         <div className="pt-1">
-            <div className=" p-2 mt-1 bg-[var(--body-white)] border-2 border-[var(--body-bold)] rounded-md flex w-full items-center justify-between"
+            <div className=" p-2 mt-1 bg-[var(--body-white)] hover:bg-[var(--navbar-hover)] border-2 border-[var(--body-bold)] rounded-md flex w-full items-center justify-between"
             onClick={() => setSelecterOpen(!isSelecterOpen)}>
                 <span>{(selectedATM) ? selectedATM.name : "All ATMs"}</span>
                 <i className={"fa " + (isSelecterOpen ? "fa-chevron-up" : "fa-chevron-down")}></i>
