@@ -6,6 +6,7 @@ import Dashboard from './Dashboard'
 
 export default function Home() {
     const [currentPage, setCurrentPage] = useState('transactions')
+    const [menuOpen, setMenuOpen] = useState(false)
 
     let children = (
         <Dashboard />
@@ -13,6 +14,10 @@ export default function Home() {
 
     const handlePage = (e) => {
         setCurrentPage(e.target.value)
+    }
+
+    const toggleMenu = () => {
+        setMenuOpen(!menuOpen)
     }
 
     if (currentPage != 'transactions'){
@@ -23,7 +28,7 @@ export default function Home() {
     return (
         <div className='grid grid-cols-1 md:grid-cols-5'>
             <div className='col-span-1 p-2 py-8 sm:py-6 md:text-xs lg:text-base'>
-                <ul>
+                <ul className={"w-full text-center md:text-left items-center md:block " + (menuOpen ? "block " : " hidden")} >
                     <NavElement elementName="transactions" 
                     handleNav = {handlePage} text = "Transactions" 
                     prim = {currentPage} 
@@ -42,6 +47,15 @@ export default function Home() {
                     handleNav = {handlePage} text = "My Account" 
                     prim = {currentPage} />
                 </ul>
+                <div className="md:hidden">
+                    {menuOpen ? 
+                    <NavElement elementName="menu-toggle" 
+                    handleNav = {toggleMenu} text = "Close Menu" 
+                    prim = {currentPage} icon="fa-chevron-up"/> :
+                    <NavElement elementName="menu-toggle" 
+                    handleNav = {toggleMenu} text = "Open Menu" 
+                    prim = {currentPage} icon="fa-chevron-down"/> }
+                </div>
             </div>
             <div className='col-span-4'>
                 { children }
